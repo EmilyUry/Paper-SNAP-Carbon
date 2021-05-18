@@ -14,16 +14,13 @@ library(plotrix)
 x <- read.csv("SNAP_3year_harm.csv", head = T)
 names(x) <- c("Date", "Year", "Site", "Treatment", "Depth", "Core", "Salinity","Cond", "BD", 
               "SM", "LOI", "pH", "Roots", "DOC", "TDN", 
-              "Cl", "SO4", "Na", "K", "Mg", "Ca", "TIC", "TCC", "NH4", "ICNO3", "ICPO4",
-              "Cmin_s", "Cmin_c", "SIR_s", "SIR_c", "Br", "Phenol", "NO3", "PO4", "Suva254")
+              "Cl", "SO4", "Na", "K", "Mg", "Ca", "TIC", "TCC",
+              "Cmin_s", "Cmin_c", "SIR_s", "SIR_c", "Phenol", "Suva254")
 
 ### replace NAs in nutrient (NO3, NH4, PO4) data with 0.005, which is half detection limit. 
 
 x <- data.table(x)
-x$ICNO3[is.na(x$ICNO3)] <- 0.005 ## set below detection limit
-x$NH4[is.na(x$NH4)] <- 0.005
-x$PO4[is.na(x$PO4)] <- 0.005
-x$Mg[is.na(x$Mg)] <- 0.005
+x$Mg[is.na(x$Mg)] <- 0.005  ## set below detection limit
 x$Ca[is.na(x$Ca)] <- 0.005
 x$Mg[x$Mg < 0] <- 0.005
 x$Ca[x$Ca < 0] <- 0.005
