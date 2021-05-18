@@ -30,7 +30,7 @@ BaseSat
 CEC <- subset %>%
   group_by(Site, Plot, Depth) %>%
   summarise(mean =round(mean(CEC), 1), 
-            se = round(sd(CEC)/sqrt(5), 3))
+            se = round(sd(CEC)/sqrt(5), 2))
 CEC
 
 EC <- subset %>%
@@ -38,3 +38,9 @@ EC <- subset %>%
   summarise(mean =round(mean(EC), 2), 
             se = round(sd(EC)/sqrt(5), 3))
 EC
+
+AC <- subset %>%
+  group_by(Site, Plot, Depth) %>%
+  summarise(mean =round(mean(AC), 1), 
+            se = round(sd(AC)/sqrt(5), 2))
+AC
