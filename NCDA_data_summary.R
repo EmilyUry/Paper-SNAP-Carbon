@@ -8,9 +8,9 @@ library(dplyr)
 
 
 dat <- read.csv("NCDA_soils_data.csv", head = T)
-names(dat) <- c("Site", "Plot", "Depth", "ID", "Moisture", "W_V_g_cm3", "pH", "BaseSat", "AC", "CEC", "Na", "P", "K",
+names(dat) <- c("Site", "Plot", "Depth", "ID", "HM", "W_V_g_cm3", "pH", "BaseSat", "AC", "CEC", "Na", "P", "K",
                 "Ca", "Mg", "S", "Mn", "Cu", "Zn", "EC")
-subset <- subset(dat, select = c(Site, Plot, Depth, ID, Moisture, pH, BaseSat, AC, CEC, EC))
+subset <- subset(dat, select = c(Site, Plot, Depth, ID, HM, pH, BaseSat, AC, CEC, EC))
 
 
 pH <- subset %>%
@@ -44,3 +44,9 @@ AC <- subset %>%
   summarise(mean =round(mean(AC), 1), 
             se = round(sd(AC)/sqrt(5), 2))
 AC
+
+HM <- subset %>%
+  group_by(Site, Plot, Depth) %>%
+  summarise(mean =round(mean(HM), 1), 
+            se = round(sd(HM)/sqrt(5), 2))
+HM
