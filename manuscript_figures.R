@@ -391,3 +391,39 @@ b <- ggplot(s.SM, aes(x = date, y = mean, group = interaction(Treatment, Site), 
   geom_errorbar(data = s.SM, aes(ymin = mean - se, ymax = mean + se, x = date, width = 0)) 
 grid.arrange(a, b, nrow = 1, widths =c(2.3,3.0))
 dev.off()
+
+
+
+
+############ Supplemental Figure 3 -- Roots
+#####
+## FIGURE  points and error bars 
+
+x$response <- x$Roots
+output <- x[,.("mean" = mean(response), "se" = std.error(response)),
+            by = c("Date", "Site", "Treatment", "Depth")]
+output$variable <- rep("Roots", 48)
+output$mean <- round(output$mean, 2)
+output$se <- round(output$se, 2)
+output$Site <- as.factor(output$Site)
+output$Treatment <- as.factor(output$Treatment)
+output$date <- date
+s.roots <- output
+
+### FIGURE  points and error bars 
+labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
+names(labs) <- c("(0-5)", "(5-10)")
+tiff(filename = "FigSupp3.tiff", height=2400, width=3200, units= "px", res=800, compression= "lzw")
+ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
+  geom_point() +
+  geom_line() +
+  facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
+  scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+  scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+  scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+  theme_bw() +
+  xlab(" ") +
+  ylab("Roots (g)") +
+  geom_errorbar(data = output, aes(ymin = mean - se, ymax = mean + se, x = date, width = 0)) 
+dev.off()
+
