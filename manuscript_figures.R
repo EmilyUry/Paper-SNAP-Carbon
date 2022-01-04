@@ -4,7 +4,7 @@
 ## Manuscript Figures
 
 setwd("C:/Users/uryem/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/data")
-
+setwd("C:/Users/Emily Ury/OneDrive - University of Waterloo/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/data")
 
 library(ggplot2)
 library(data.table)
@@ -387,12 +387,12 @@ b <- ggplot(s.SM, aes(x = date, y = mean, group = interaction(Treatment, Site), 
   scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
   theme_bw() +
   xlab(" ") +
-  ylab("Soi moisture (%)") +    
+  ylab("Soil moisture (%)") +    
   geom_errorbar(data = s.SM, aes(ymin = mean - se, ymax = mean + se, x = date, width = 0)) 
 grid.arrange(a, b, nrow = 1, widths =c(2.3,3.0))
 dev.off()
 
-
+ 
 
 
 ############ Supplemental Figure 3 -- Roots
