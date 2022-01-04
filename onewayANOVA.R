@@ -1,25 +1,27 @@
 
 
 ### two way anovas -- SNAP --- ALL data
+setwd("C:/Users/Emily Ury/OneDrive - University of Waterloo/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/data")
 
 
 x <- read.csv("SNAP_3year_harm.csv", head = T)
+
+
 names(x) <- c("Date", "Year", "Site", "Treatment", "Depth", "Core", "Salinity","Cond", "BD", 
               "SM", "LOI", "pH", "Roots", "DOC", "TDN", 
-              "Cl", "SO4", "Na", "K", "Mg", "Ca", "TIC", "TCC", "NH4", "ICNO3", "ICPO4",
-              "Cmin_s", "Cmin_c", "SIR_s", "SIR_c", "Br", "Phenol", "NO3", "PO4", "Suva254")
+              "Cl", "SO4", "Na", "K", "Mg", "Ca", "TIC", "TCC",
+              "Cmin_s", "Cmin_c", "SIR_s", "SIR_c", "Phenol", "Suva254")
+
 x$PhenolDOC <- x$Phenol/x$DOC
 
 ## reorder and select variables
 x <- subset(x, select = c("Date", "Site", "Treatment", "Depth", "Core", "Roots", "pH", "LOI", 
                           "DOC", "Phenol", "PhenolDOC", "Cmin_s", "Cmin_c", "SIR_s", "SIR_c", 
-                          "SM", "BD", "Cl", "SO4", "Na", "K", "Mg", "Ca", "TDN", "NH4", "ICNO3", "PO4"
+                          "SM", "BD", "Cl", "SO4", "Na", "K", "Mg", "Ca", "TDN"
                             ))
 
-### replace NAs in nutrient (NO3, NH4, PO4) data with 0.005, which is half detection limit. 
-x$ICNO3[is.na(x$ICNO3)] <- 0.005
-x$NH4[is.na(x$NH4)] <- 0.005
-x$PO4[is.na(x$PO4)] <- 0.005
+### replace NAs with 0.005, which is half detection limit. 
+
 x$Mg[is.na(x$Mg)] <- 0.005
 x$Ca[is.na(x$Ca)] <- 0.005
 x$Mg[x$Mg < 0] <- 0.005
@@ -635,7 +637,7 @@ at.DOC$significance <- sigs
 
 
 df <- rbind(at.pH, at.LOI, at.DOC, at.Phenol, at.PhenolDOC, at.Cmin_c, at.Cmin_s, at.SIR_c, at.SIR_s, at.Roots, at.BD, at.SM,
-            at.TDN, at.NH4, at.NO3, at.PO4, at.Cl, at.SO4, at.Na, at.K, at.Mg, at.Ca)
+            at.TDN, at.Cl, at.SO4, at.Na, at.K, at.Mg, at.Ca)
 
 write.csv(df, "ANOVA_all_vars2.csv")
 
