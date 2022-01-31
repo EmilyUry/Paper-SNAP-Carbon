@@ -81,17 +81,21 @@ x5$Month <- as.factor(x5$month)
 labs = c("Dry", "Intermediate", "Wet")
 names(labs) <- c("1", "3", "5")
 
+
 plot<- ggplot(x5, aes(x=Month, y=pH,  fill = Treatment), xlab(month) ) + 
   geom_boxplot() +
   #geom_line(color="grey") +
-  scale_x_discrete(name=" ", breaks = c(19, 21, 32, 46), labels = c("M '18", "J '18", "J '19", "A '20"), limits = c(19, 21, "skip", 32, "skip", 46)) +
+  scale_x_discrete(name=" ", breaks = c(19, 21, 32, 46), labels = c("M'18", "J'18", "J'19", "A'20"), limits = c(19, 21, "skip", 32, "skip", 46)) +
     scale_y_continuous(name="pH", limits=c(3, 7)) +
   facet_grid(.~Site, labeller = labeller(Site = labs)) + 
   scale_fill_manual(values=c("#FFFFFF", "#db351f")) +
-  theme_bw()
-
+  theme_bw() +
+  theme(text = element_text(size = 14), strip.text.x = element_text(size = 16), panel.grid.minor = element_blank())
 plot
 
+tiff(filename = "Figures/Fig8.tiff", height= 2400, width=5600, units= "px", res=800, compression= "lzw")
+plot
+dev.off()
 
 
 
