@@ -54,6 +54,8 @@ x5$ID2<-paste(x5$Site,x5$Treatment,sep="")
 mod1 <- lme(pH ~ Treatment*month, random = ~ Treatment|Site, data = x5)
 mod1
 
+summary(mod1)
+
 sum <- summary(mod1)
 tab1 <- sum$tTable
 tab1
