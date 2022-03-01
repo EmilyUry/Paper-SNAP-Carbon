@@ -3,6 +3,9 @@ setwd("C:/Users/Emily Ury/OneDrive - University of Waterloo/Desktop/DukeBioDrop_
 
 #library(nlme)
 library(lme4)
+#library(emmeans)
+library(lmerTest)
+library(ggplot2)
 
 x <- read.csv("SNAP_3year_harm.csv", head = T)
 
@@ -26,7 +29,7 @@ x$Mg[x$Mg < 0] <- 0.005
 x$Ca[x$Ca < 0] <- 0.005
 
 ### log transform ions 
-lX<-log(x[,c(18:23)])
+lX<-log10(x[,c(18:23)])
 colnames(lX)<-paste("log",colnames(lX),sep="")
 x<-cbind(x,lX); rm(lX)
 
@@ -48,6 +51,7 @@ x5$ID2<-paste(x5$Site,x5$Treatment,sep="")
 
 mod1 <- lmer(pH ~ Treatment + (1|Site), data = x5)
 summary(mod1)
+anova(mod1)  ## p > 0.05 -- no effect of treatment on pH
 
 ## site explains about 66% of the residual variance 
 .6349/(0.6349+0.331)
@@ -56,6 +60,15 @@ plot(mod1)
 qqnorm(resid(mod1))
 qqline(resid(mod1))  #bad
 
+emmeans(model, list(pairwise ~ Group), adjust = "tukey")
+
+
+
+mod1 <- lmer(logCl ~ Treatment + (1|Site), data = x5)
+anova(mod1)  ## p < 0.05 -- sign. effect of treatment on Cl
+
+mod1 <- lmer(SIR_s ~ Treatment + (1|Site), data = x5)
+anova(mod1)  ## p < 0.05 -- sign. effect of treatment on Cl
 
 
 ## hierarchical mixed effects model
@@ -148,6 +161,77 @@ anova(mod3, mod4)
 
 
 
+mod4 <- lmer(pH ~ Treatment*month + (1 + month|Site) , data = x5)
+summary(mod4)
+## treatment is still not a significant fixed effect 
+plot(mod4)
+qqnorm(resid(mod4))
+qqline(resid(mod4))  ## better
 
+fit <- fixef(mod4)[2]
+se.fit <- sqrt(diag(vcov(mod4)))[2]
+plot <- ggplot(x5, aes(x = month, y = pH, colour = Treatment)) +
+  facet_wrap(~Site, nrow=1) +   # a panel for each mountain range
+  geom_point(alpha = 0.5) +
+  theme_bw() +
+  geom_line(data = cbind(x5, pred = predict(mod4)), aes(y = pred), size = 1) +  # adding predicted line from mixed model 
+  geom_ribbon(data = cbind(x5, pred=predict(mod4)), aes(ymin=pred-1.96*se.fit, ymax = pred+1.96*se.fit),
+              alpha = 0.2, fill = "gray70") +
+  theme(legend.position = "none",
+        panel.spacing = unit(2, "lines"))  # adding space between panels
+plot
+
+
+mod5 <- lmer(logCl ~ Treatment*month + (1 + Treatment*month|Site) , data = x5)
+summary(mod5)
+anova(mod5)
+## treatment is still not a significant fixed effect 
+plot(mod5)
+qqnorm(resid(mod5))
+qqline(resid(mod5))  ## better
+
+fit <- fixef(mod5)[2]
+se.fit <- sqrt(diag(vcov(mod5)))[2]
+plot <- ggplot(x5, aes(x = month, y = logCl, colour = Treatment)) +
+  facet_wrap(~Site, nrow=1) +   # a panel for each mountain range
+  geom_point(alpha = 0.5) +
+  theme_bw() +
+  geom_line(data = cbind(x5, pred = predict(mod5)), aes(y = pred), size = 1) +  # adding predicted line from mixed model 
+  geom_ribbon(data = cbind(x5, pred=predict(mod5)), aes(ymin=pred-1.96*se.fit, ymax = pred+1.96*se.fit),
+              alpha = 0.2, fill = "gray70") +
+  theme(legend.position = "none",
+        panel.spacing = unit(2, "lines"))  # adding space between panels
+plot
+
+
+
+mod5 <- lmer(DOC ~ Treatment*month + (1 + Treatment*month|Site) , data = x5)
+anova(mod5)
+
+plot <- ggplot(x5, aes(x = month, y = DOC, colour = Site)) +
+  facet_wrap(~Treatment, nrow=1) +   # a panel for each mountain range
+  geom_point(alpha = 0.5) +
+  theme_bw() +
+  geom_line(data = cbind(x5, pred = predict(mod5)), aes(y = pred), size = 1) +  # adding predicted line from mixed model 
+  geom_ribbon(data = cbind(x5, pred=predict(mod5)), aes(ymin=pred-1.96*se.fit, ymax = pred+1.96*se.fit),
+              alpha = 0.2, fill = "gray70") +
+  theme(legend.position = "none",
+        panel.spacing = unit(2, "lines"))  # adding space between panels
+plot
+
+plot <- ggplot(x5, aes(x = month, y = DOC, colour = Treatment)) +
+  facet_wrap(~Site, nrow=1) +   # a panel for each mountain range
+  geom_point(alpha = 0.5) +
+  theme_bw() +
+  geom_line(data = cbind(x5, pred = predict(mod5)), aes(y = pred), size = 1) +  # adding predicted line from mixed model 
+  geom_ribbon(data = cbind(x5, pred=predict(mod5)), aes(ymin=pred-1.96*se.fit, ymax = pred+1.96*se.fit),
+              alpha = 0.2, fill = "gray70") +
+  theme(panel.spacing = unit(2, "lines"))  # adding space between panels
+plot
+
+
+
+
+anova(mod4,mod5)
 
 
