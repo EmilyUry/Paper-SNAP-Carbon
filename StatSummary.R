@@ -62,8 +62,8 @@ x5$ID2<-paste(x5$Site,x5$Treatment,sep="")
 
 ###### Full model
 
-x5$RESPONSE <- x5$Cmin_c
-yaxis <- "Cmin_c"
+x5$RESPONSE <- x5$logCl
+yaxis <- "pH"
 
 mod.full <- lmer(RESPONSE ~ Treatment*month + (1 + Treatment*month|Site) , data = x5)
 mod.treat <- lmer(RESPONSE ~ Treatment + (1 + Treatment|Site) , data = x5) # Treatment(fixed) + Site(random) + Interaction
@@ -71,6 +71,7 @@ mod.time<- lmer(RESPONSE ~ month + (1 + month|Site) , data = x5)  # Trend over t
 null <- lmer(RESPONSE ~ (1|Site), data = x5)
 
 AIC(mod.full, mod.treat, mod.time, null)
+anova(mod.full, mod.treat, mod.time, null)
 
 
 ## other models not included in analysis
