@@ -4,6 +4,7 @@
 ## Manuscript Figures
 
 setwd("C:/Users/uryem/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/data")
+setwd("C:/Users/uryem/OneDrive - University of Waterloo/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/data")
 setwd("C:/Users/Emily Ury/OneDrive - University of Waterloo/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/data")
 
 library(ggplot2)
@@ -28,6 +29,8 @@ x$Ca[x$Ca < 0] <- 0.005
 
 date <- c(rep("Aug 2020", 12), rep("Jun 2019", 12), rep("May 2018", 12), rep("Jul 2018", 12))
 date <- factor(date, levels = c("May 2018", "Jul 2018", "Jun 2019", "Aug 2020") )
+
+date <- c(rep(27, 12), rep(17, 12), rep(4, 12), rep(7, 12))
 
 
 ############ Figure 8 -- pH
@@ -63,7 +66,7 @@ s.pH <- output
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-tiff(filename = "Fig8.tiff", height=2400, width=3200, units= "px", res=800, compression= "lzw")
+tiff(filename = "Figures/pH.tiff", height=2400, width=3200, units= "px", res=800, compression= "lzw")
   ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
@@ -71,6 +74,7 @@ tiff(filename = "Fig8.tiff", height=2400, width=3200, units= "px", res=800, comp
     scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
     scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
     scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+    scale_x_continuous(breaks = c(4,7,17,27),labels = c("M'18", "J'18","J'19", "A'20")) +
     theme_bw() +
     xlab(" ") +
     ylab("pH") +
@@ -95,7 +99,7 @@ s.LOI <- output
 ### FIGURE  points and error bars 
 labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
 names(labs) <- c("(0-5)", "(5-10)")
-tiff(filename = "Fig5.tiff", height=2400, width=3200, units= "px", res=800, compression= "lzw")
+tiff(filename = "Figures/LOI.tiff", height=2400, width=3200, units= "px", res=800, compression= "lzw")
 ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
   geom_point() +
   geom_line() +
@@ -103,6 +107,7 @@ ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), col
   scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
   scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
   scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+  scale_x_continuous(breaks = c(4,7,17,27),labels = c("M'18", "J'18","J'19", "A'20")) +
   theme_bw() +
   xlab(" ") +
   ylab("LOI (%)") +
@@ -127,7 +132,7 @@ s.DOC <- output
 ### FIGURE  points and error bars 
 labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
 names(labs) <- c("(0-5)", "(5-10)")
-tiff(filename = "Fig3.tiff", height=2400, width=3200, units= "px", res=800, compression= "lzw")
+tiff(filename = "Figures/DOC.tiff", height=2400, width=3200, units= "px", res=800, compression= "lzw")
 ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
   geom_point() +
   geom_line() +
@@ -135,6 +140,7 @@ ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), col
   scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
   scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
   scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+  scale_x_continuous(breaks = c(4,7,17,27),labels = c("M'18", "J'18","J'19", "A'20")) +
   theme_bw() +
   xlab(" ") +
   ylab(expression(paste('DOC (mg · L'^-1, ')'))) +
@@ -178,7 +184,7 @@ s.SIRc <- output
 ### FIGURE  points and error bars 
 labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
 names(labs) <- c("(0-5)", "(5-10)")
-tiff(filename = "Fig1.tiff", height=2400, width=6400, units= "px", res=800, compression= "lzw")
+tiff(filename = "Figures/SIR.tiff", height=2400, width=6400, units= "px", res=800, compression= "lzw")
 a <- ggplot(s.SIRs, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
   geom_point() +
   geom_line() +
@@ -186,6 +192,7 @@ a <- ggplot(s.SIRs, aes(x = date, y = mean, group = interaction(Treatment, Site)
   scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
   scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
   scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+  scale_x_continuous(breaks = c(4,7,17,27),labels = c("M'18", "J'18","J'19", "A'20")) +
   theme_bw() +
   theme(legend.position = "none") +
   xlab(" ") +
@@ -198,6 +205,7 @@ b <- ggplot(s.SIRc, aes(x = date, y = mean, group = interaction(Treatment, Site)
   scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
   scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
   scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+  scale_x_continuous(breaks = c(4,7,17,27),labels = c("M'18", "J'18","J'19", "A'20")) +
   theme_bw() +
   xlab(" ") +
   ylab(expression(paste('SIR (', mu, 'g C-CO'[2], ' g C'^-1, ')'))) +  
@@ -214,6 +222,7 @@ dev.off()
 ############ Figure 2 -- CMin
 #####
 ## FIGURE  points and error bars 
+
 
 
 x$response <- x$Cmin_s
@@ -242,7 +251,7 @@ s.Cminc <- output
 ### FIGURE  points and error bars 
 labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
 names(labs) <- c("(0-5)", "(5-10)")
-tiff(filename = "Fig2.tiff", height=2400, width=6400, units= "px", res=800, compression= "lzw")
+tiff(filename = "Figures/Cmin.tiff", height=2400, width=6400, units= "px", res=800, compression= "lzw")
 a <- ggplot(s.Cmins, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
   geom_point() +
   geom_line() +
@@ -250,6 +259,7 @@ a <- ggplot(s.Cmins, aes(x = date, y = mean, group = interaction(Treatment, Site
   scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
   scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
   scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+  scale_x_continuous(breaks = c(7,17,27),labels = c( "J'18","J'19", "A'20")) +
   theme_bw() +
   theme(legend.position = "none") +
   xlab(" ") +
@@ -262,6 +272,7 @@ b <- ggplot(s.Cminc, aes(x = date, y = mean, group = interaction(Treatment, Site
   scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
   scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
   scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+  scale_x_continuous(breaks = c(7,17,27),labels = c( "J'18","J'19", "A'20")) +
   theme_bw() +
   xlab(" ") +
   ylab(expression(paste('C'[mineralization], '(', mu, 'g C-CO'[2], ' g C'^-1, ')'))) +    
@@ -304,7 +315,7 @@ s.phenolics.doc <- output
 ### FIGURE  points and error bars 
 labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
 names(labs) <- c("(0-5)", "(5-10)")
-tiff(filename = "Fig4.tiff", height=2400, width=6400, units= "px", res=800, compression= "lzw")
+tiff(filename = "Figures/Phenol.tiff", height=2400, width=6400, units= "px", res=800, compression= "lzw")
 a <- ggplot(s.phenol, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
   geom_point() +
   geom_line() +
@@ -312,6 +323,7 @@ a <- ggplot(s.phenol, aes(x = date, y = mean, group = interaction(Treatment, Sit
   scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
   scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
   scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+  scale_x_continuous(breaks = c(4,7,17,27),labels = c("M'18", "J'18","J'19", "A'20")) +
   theme_bw() +
   theme(legend.position = "none") +
   xlab(" ") +
@@ -324,6 +336,7 @@ b <- ggplot(s.phenolics.doc, aes(x = date, y = mean, group = interaction(Treatme
   scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
   scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
   scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+  scale_x_continuous(breaks = c(4,7,17,27),labels = c("M'18", "J'18","J'19", "A'20")) +
   theme_bw() +
   xlab(" ") +
   ylab(expression(paste('Phenolics (mg · mg DOC'^-1, ')'))) +     
@@ -365,7 +378,7 @@ s.SM <- output
 ### FIGURE  points and error bars 
 labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
 names(labs) <- c("(0-5)", "(5-10)")
-tiff(filename = "Fig6.tiff", height=2400, width=6400, units= "px", res=800, compression= "lzw")
+tiff(filename = "Figures/Cl.tiff", height=2400, width=6400, units= "px", res=800, compression= "lzw")
 a <- ggplot(s.Cl, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
   geom_point() +
   geom_line() +
@@ -373,6 +386,7 @@ a <- ggplot(s.Cl, aes(x = date, y = mean, group = interaction(Treatment, Site), 
   scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
   scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
   scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+  scale_x_continuous(breaks = c(4,7,17,27),labels = c("M'18", "J'18","J'19", "A'20")) +
   theme_bw() +
   theme(legend.position = "none") +
   xlab(" ") +
@@ -385,6 +399,7 @@ b <- ggplot(s.SM, aes(x = date, y = mean, group = interaction(Treatment, Site), 
   scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
   scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
   scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+  scale_x_continuous(breaks = c(4,7,17,27),labels = c("M'18", "J'18","J'19", "A'20")) +
   theme_bw() +
   xlab(" ") +
   ylab("Soil moisture (%)") +    
@@ -413,7 +428,7 @@ s.roots <- output
 ### FIGURE  points and error bars 
 labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
 names(labs) <- c("(0-5)", "(5-10)")
-tiff(filename = "FigSupp3.tiff", height=2400, width=3200, units= "px", res=800, compression= "lzw")
+tiff(filename = "Figures/Supplement/roots.tiff", height=2400, width=3200, units= "px", res=800, compression= "lzw")
 ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
   geom_point() +
   geom_line() +
@@ -421,6 +436,7 @@ ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), col
   scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
   scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
   scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
+  scale_x_continuous(breaks = c(4,7,17,27),labels = c("M'18", "J'18","J'19", "A'20")) +
   theme_bw() +
   xlab(" ") +
   ylab("Roots (g)") +
