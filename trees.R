@@ -69,11 +69,15 @@ list <- c("LIQSTY", "PERPAL", "PINTAE", "QUEALB", "QUEMIC", "QUENIG", "QUEPAG",
           "QUEPHE")
 df2 <- subset(df, Species %in% list)
 
-ggplot(df2, aes(x = Treatment, y = pc, fill = Species)) +
+species <- ggplot(df2, aes(x = Treatment, y = pc, fill = Species)) +
   geom_boxplot() +
-  facet_grid(Site ~ .) +
+  facet_grid(Site ~ ., labeller = labeller(Site = labs)) +
   theme_bw() +
-  ylab("Tree growth (%)")
+  ylab("Tree growth (%)") +
+  scale_fill_discrete(name = "Species", labels = c("Liquidambar styraciflua", "Persea palustris", "Pinus taeda",
+                                                   "Quercus alba", "Quercus michauxii", "Quercus nirga",
+                                                   "Quercus pagoda", "Quercus phellos")) +
+  theme(legend.text = element_text(face = "italic"))
 
 
 
