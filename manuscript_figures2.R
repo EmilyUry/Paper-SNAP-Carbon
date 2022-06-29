@@ -382,6 +382,27 @@ dev.off()
 ########## supplemental figures
 
 
+## tree growth by species
+{list <- c("LIQSTY", "PERPAL", "PINTAE", "QUEALB", "QUEMIC", "QUENIG", "QUEPAG", 
+          "QUEPHE")
+df2 <- subset(df, Species %in% list)
+
+species <- ggplot(df2, aes(x = Treatment, y = pc, fill = Species)) +
+  geom_boxplot() +
+  facet_grid(Site ~ ., labeller = labeller(Site = labs)) +
+  theme_bw() +
+  ylab("Tree growth (%)") +
+  scale_fill_discrete(name = "Species", labels = c("Liquidambar styraciflua", "Persea palustris", "Pinus taeda",
+                                                   "Quercus alba", "Quercus michauxii", "Quercus nirga",
+                                                   "Quercus pagoda", "Quercus phellos")) +
+  theme(legend.text = element_text(face = "italic"))
+}
+
+tiff(filename = "NewFigs/tree_species.tif", height=3600, width=3600, units= "px", res=800, compression= "lzw")
+species
+dev.off()
+
+
 ############ [FIGURE S3]
 {  
   Cmin_s <- ggplot(x, aes(x=date, y = Cmin_s, color = Treatment, fill = Treatment)) +
