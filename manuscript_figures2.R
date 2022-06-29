@@ -382,7 +382,7 @@ dev.off()
 ########## supplemental figures
 
 
-## tree growth by species
+## tree growth by species [FIGURE S6]
 {list <- c("LIQSTY", "PERPAL", "PINTAE", "QUEALB", "QUEMIC", "QUENIG", "QUEPAG", 
           "QUEPHE")
 df2 <- subset(df, Species %in% list)
@@ -403,7 +403,7 @@ species
 dev.off()
 
 
-############ [FIGURE S3]
+############ [FIGURE S4]
 {  
   Cmin_s <- ggplot(x, aes(x=date, y = Cmin_s, color = Treatment, fill = Treatment)) +
     geom_point(cex = 0.3) +
@@ -473,7 +473,7 @@ dev.off()
 
 
 
-############ [FIGURE S4] -- Phenols
+############ [FIGURE S5] -- Phenols
 {
   Phenol <- ggplot(x, aes(x=date, y = Phenol, color = Treatment, fill = Treatment)) +
     geom_point(cex = 0.3) +
@@ -519,5 +519,46 @@ dev.off()
 
 
 
+
+
+
+
+###### model of 2020 data
+
+library(lme4)
+library(lmerTest)
+
+d20 <- x[which(x$Date == "August 8th, 2020"),]
+
+d20$response <- d20$Cmin_c
+
+
+mod1 <- lmer(Cmin_c ~ Treatment + (1|Site) + (1|Depth), data = d20)
+summary(mod1)
+anova(mod1)
+
+
+mod1 <- lmer(DOC ~ Treatment + (1|Site) + (1|Depth), data = d20)
+summary(mod1)
+anova(mod1)
+
+mod1 <- lmer(LOI ~ Treatment + (1|Site) + (1|Depth), data = d20)
+summary(mod1)
+anova(mod1)
+
+
+
+
+mod2 <- lmer(Cmin_c ~ log(Cl) + pH + (1|Site) + (1|Depth), data = d20)
+summary(mod2)
+anova(mod2)
+
+mod2 <- lmer(DOC ~ log(Cl) + pH + (1|Site) + (1|Depth), data = d20)
+summary(mod2)
+anova(mod2)
+
+mod2 <- lmer(LOI ~ log(Cl) + pH + (1|Site) + (1|Depth), data = d20)
+summary(mod2)
+anova(mod2)
 
 
