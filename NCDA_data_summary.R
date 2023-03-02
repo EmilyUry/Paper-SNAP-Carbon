@@ -8,9 +8,13 @@ library(dplyr)
 
 
 dat <- read.csv("NCDA_soils_data.csv", head = T)
+
 names(dat) <- c("Site", "Plot", "Depth", "ID", "HM", "W_V_g_cm3", "pH", "BaseSat", "AC", "CEC", "Na", "P", "K",
                 "Ca", "Mg", "S", "Mn", "Cu", "Zn", "EC")
 subset <- subset(dat, select = c(Site, Plot, Depth, ID, HM, pH, BaseSat, AC, CEC, EC))
+dat$Site <- as.factor(dat$Site)
+dat$Plot <- as.factor(dat$Plot)
+dat$Depth <- as.factor(dat$Depth)
 
 
 pH <- subset %>%
@@ -18,6 +22,58 @@ pH <- subset %>%
   summarise(mean =round(mean(pH), 1), 
             se = round(sd(pH)/sqrt(5), 3))
 pH
+
+pH <- as.data.frame(pH)
+
+
+dat$group <- paste(dat$Site, dat$Plot, dat$Depth)
+dat$group <- as.factor(dat$group)
+
+Dry.shallow <- dat[which(dat$Site == "1" & dat$Depth == "(0-5)"),]
+Dry.deep <- dat[which(dat$Site == "1" & dat$Depth == "(5-10)"),]
+Int.shallow <- dat[which(dat$Site == "3" & dat$Depth == "(0-5)"),]
+Int.deep <- dat[which(dat$Site == "3" & dat$Depth == "(5-10)"),]
+Wet.shallow <- dat[which(dat$Site == "5" & dat$Depth == "(0-5)"),]
+Wet.deep <- dat[which(dat$Site == "5" & dat$Depth == "(5-10)"),]
+
+wilcox.test(pH ~ Plot, data = Dry.shallow)
+wilcox.test(pH ~ Plot, data = Dry.deep)
+wilcox.test(pH ~ Plot, data = Int.shallow)
+wilcox.test(pH ~ Plot, data = Int.deep)
+wilcox.test(pH ~ Plot, data = Wet.shallow)
+wilcox.test(pH ~ Plot, data = Wet.deep)
+
+
+wilcox.test(HM ~ Plot, data = Dry.shallow)
+wilcox.test(HM ~ Plot, data = Dry.deep)
+wilcox.test(HM ~ Plot, data = Int.shallow)
+wilcox.test(HM ~ Plot, data = Int.deep)
+wilcox.test(HM ~ Plot, data = Wet.shallow)
+wilcox.test(HM ~ Plot, data = Wet.deep)
+
+
+wilcox.test(BaseSat ~ Plot, data = Dry.shallow)
+wilcox.test(BaseSat ~ Plot, data = Dry.deep)
+wilcox.test(BaseSat ~ Plot, data = Int.shallow)
+wilcox.test(BaseSat ~ Plot, data = Int.deep)
+wilcox.test(BaseSat ~ Plot, data = Wet.shallow)
+wilcox.test(BaseSat ~ Plot, data = Wet.deep)
+
+
+wilcox.test(CEC ~ Plot, data = Dry.shallow)
+wilcox.test(CEC ~ Plot, data = Dry.deep)
+wilcox.test(CEC ~ Plot, data = Int.shallow)
+wilcox.test(CEC ~ Plot, data = Int.deep)
+wilcox.test(CEC ~ Plot, data = Wet.shallow)
+wilcox.test(CEC ~ Plot, data = Wet.deep)
+
+wilcox.test(AC ~ Plot, data = Dry.shallow)
+wilcox.test(AC ~ Plot, data = Dry.deep)
+wilcox.test(AC ~ Plot, data = Int.shallow)
+wilcox.test(AC ~ Plot, data = Int.deep)
+wilcox.test(AC ~ Plot, data = Wet.shallow)
+wilcox.test(AC ~ Plot, data = Wet.deep)
+
 
 
 BaseSat <- subset %>%
