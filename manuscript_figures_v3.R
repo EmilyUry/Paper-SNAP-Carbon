@@ -54,12 +54,12 @@ names(site.labs) <- c("1", "3", "5")
 ######## soil response [FIGURE 1]
 {
 SM <- ggplot(x, aes(x=date, y = SM, color = Treatment, fill = Treatment)) +
-  geom_point(cex = 0.3) +
-  geom_smooth(size = 0.3) +
+  geom_point(cex = 1) +
+  geom_smooth(size = 1) +
   scale_color_manual(values = c("black", "red")) +
   scale_fill_manual(values = c("gray50", "#fc796f")) +
   facet_grid(Depth ~ Site, labeller = labeller(Depth = depth.labs, Site = site.labs)) +
-  theme_bw(base_size = 7) + 
+  theme_bw(base_size = 14) + 
   theme(strip.text.x = element_blank(), 
         strip.background = element_rect(colour="black", fill="white"),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -74,12 +74,12 @@ SM <- ggplot(x, aes(x=date, y = SM, color = Treatment, fill = Treatment)) +
         axis.ticks.x=element_blank())
 
 Cl <- ggplot(x, aes(x=date, y = Cl/1000, color = Treatment, fill = Treatment)) +
-  geom_point(cex = 0.3) +
-  geom_smooth(size = 0.3) +
+  geom_point(cex = 1) +
+  geom_smooth(size = 1) +
   scale_color_manual(values = c("black", "red")) +
   scale_fill_manual(values = c("gray50", "#fc796f")) +
   facet_grid(Depth ~ Site, labeller = labeller(Depth = depth.labs, Site = site.labs)) +
-  theme_bw(base_size = 7) + 
+  theme_bw(base_size = 14) + 
   theme(strip.background = element_rect(colour="black", fill="white"),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         legend.key.size = unit(0.2, "cm"), legend.title = element_blank(),
@@ -94,12 +94,12 @@ Cl <- ggplot(x, aes(x=date, y = Cl/1000, color = Treatment, fill = Treatment)) +
         axis.ticks.x=element_blank())
 
 pH <- ggplot(x, aes(x=date, y = pH, color = Treatment, fill = Treatment)) +
-  geom_point(cex = 0.3) +
-  geom_smooth(size = 0.3) +
+  geom_point(cex = 1) +
+  geom_smooth(size = 1) +
   scale_color_manual(values = c("black", "red")) +
   scale_fill_manual(values = c("gray50", "#fc796f")) +
   facet_grid(Depth ~ Site, labeller = labeller(Depth = depth.labs, Site = site.labs)) +
-  theme_bw(base_size = 7) + 
+  theme_bw(base_size = 14) + 
   theme(strip.text.x = element_blank(), 
         strip.background = element_rect(colour="black", fill="white"),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -110,8 +110,12 @@ pH <- ggplot(x, aes(x=date, y = pH, color = Treatment, fill = Treatment)) +
   ylab("pH")
 }
 
-tiff(filename = "NewFigs/Treatment_effects.tif", height=3000, width=2400, units= "px", res=800, compression= "lzw")
-plot_grid(Cl, SM, pH, labels = c("A", "B", "C"), ncol = 1, label_size = 7, rel_heights = c(20,17.5,20))
+#tiff(filename = "NewFigs/Treatment_effects.tif", height=3000, width=2400, units= "px", res=800, compression= "lzw")
+
+setwd("C:/Users/uryem/OneDrive - University of Waterloo/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/Second Submission - Plos1/Figures")
+tiff(filename = "Treatment_effects.tif", height=6.5, width=5.5, units= "in", res=800, compression= "lzw")
+
+plot_grid(Cl, SM, pH, labels = c("A", "B", "C"), ncol = 1, label_size = 11, rel_heights = c(20,17.5,20))
 dev.off()
 
 
@@ -122,12 +126,12 @@ summary(fit1)
 ############ [FIGURE 3]
 {
 DOC <- ggplot(x, aes(x=date, y = DOC, color = Treatment, fill = Treatment)) +
-  geom_point(cex = 0.3) +
-  geom_smooth(size = 0.3) +
+  geom_point(cex = 1) +
+  geom_smooth(size = 1) +
   scale_color_manual(values = c("black", "red")) +
   scale_fill_manual(values = c("gray50", "#fc796f")) +
   facet_grid(Depth ~ Site, labeller = labeller(Depth = depth.labs, Site = site.labs)) +
-  theme_bw(base_size = 7) + 
+  theme_bw(base_size = 14) + 
   theme(strip.text.x = element_blank(), 
         strip.background = element_rect(colour="black", fill="white"),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -142,12 +146,12 @@ DOC <- ggplot(x, aes(x=date, y = DOC, color = Treatment, fill = Treatment)) +
         axis.ticks.x=element_blank())
 
 Cmin <- ggplot(x, aes(x=date, y = Cmin_c, color = Treatment, fill = Treatment)) +
-  geom_point(cex = 0.3) +
-  geom_smooth(size = 0.3) +
+  geom_point(cex = 1) +
+  geom_smooth(size = 1) +
   scale_color_manual(values = c("black", "red")) +
   scale_fill_manual(values = c("gray50", "#fc796f")) +
   facet_grid(Depth ~ Site, labeller = labeller(Depth = depth.labs, Site = site.labs)) +
-  theme_bw(base_size = 7) + 
+  theme_bw(base_size = 14) + 
   theme(strip.background = element_rect(colour="black", fill="white"),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         legend.key.size = unit(0.2, "cm"), legend.title = element_blank(),
@@ -163,12 +167,12 @@ Cmin <- ggplot(x, aes(x=date, y = Cmin_c, color = Treatment, fill = Treatment)) 
 
 
 LOI <- ggplot(x, aes(x=date, y = LOI, color = Treatment, fill = Treatment)) +
-  geom_point(cex = 0.3) +
-  geom_smooth(size = 0.3) +
+  geom_point(cex = 1) +
+  geom_smooth(size = 1) +
   scale_color_manual(values = c("black", "red")) +
   scale_fill_manual(values = c("gray50", "#fc796f")) +
   facet_grid(Depth ~ Site, labeller = labeller(Depth = depth.labs, Site = site.labs)) +
-  theme_bw(base_size = 7) + 
+  theme_bw(base_size = 14) + 
   theme(strip.text.x = element_blank(), 
         strip.background = element_rect(colour="black", fill="white"),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -179,14 +183,18 @@ LOI <- ggplot(x, aes(x=date, y = LOI, color = Treatment, fill = Treatment)) +
   ylab("LOI (%)")
 }
 
-tiff(filename = "NewFigs/Soil_C_responses.tif", height=3000, width=2400, units= "px", res=800, compression= "lzw")
-plot_grid(Cmin, DOC, LOI, labels = c("A", "B", "C"), ncol = 1, label_size = 7, rel_heights = c(20,17.5,20))
+#tiff(filename = "NewFigs/Soil_C_responses.tif", height=3000, width=2400, units= "px", res=800, compression= "lzw")
+tiff(filename = "Soil_C_responses.tif", height=6.5, width=5.5, units= "in", res=800, compression= "lzw")
+
+plot_grid(Cmin, DOC, LOI, labels = c("A", "B", "C"), ncol = 1, label_size = 11, rel_heights = c(20,17.5,20))
 dev.off()
 
 
 
 
 #### [FIGURE 4] Vegetation responses
+setwd("C:/Users/uryem/OneDrive - University of Waterloo/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/data")
+
 {
 data <- read.csv("Trees_2021.csv", head = TRUE)
 
@@ -205,7 +213,7 @@ tree <- ggplot(df, aes(x = Treatment, y = pc, fill = Treatment)) +
   geom_boxplot() + 
   scale_fill_manual(values=c("#FFFFFF", "#fc796f"))+
   facet_grid(. ~ Site, labeller = labeller(Site = labs))+
-  theme_bw(base_size = 7) +
+  theme_bw(base_size = 14) +
   theme(strip.background = element_rect(colour="black", fill="white"),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         legend.position = "none",
@@ -214,12 +222,12 @@ tree <- ggplot(df, aes(x = Treatment, y = pc, fill = Treatment)) +
   xlab(" ")
 
 roots <- ggplot(x, aes(x=date, y = Roots, color = Treatment, fill = Treatment)) +
-  geom_point(cex = 0.3) +
-  geom_smooth(size = 0.3) +
+  geom_point(cex = 1) +
+  geom_smooth(size = 1) +
   scale_color_manual(values = c("black", "red")) +
   scale_fill_manual(values = c("gray50", "#fc796f")) +
   facet_grid(Depth ~ Site, labeller = labeller(Depth = depth.labs, Site = site.labs)) +
-  theme_bw(base_size = 7) + 
+  theme_bw(base_size = 14) + 
   theme(strip.background = element_rect(colour="black", fill="white"),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         legend.key.size = unit(0.2, "cm"), legend.title = element_blank(),
@@ -230,8 +238,10 @@ roots <- ggplot(x, aes(x=date, y = Roots, color = Treatment, fill = Treatment)) 
   ylab("Roots (g, dry)") 
 }
 
-tiff(filename = "NewFigs/veg.tif", height=2000, width=2400, units= "px", res=800, compression= "lzw")
-plot_grid(tree, roots, labels = c("A", "B"), ncol = 1, label_size = 9, rel_heights = c(2.5,3))
+setwd("C:/Users/uryem/OneDrive - University of Waterloo/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/Second Submission - Plos1/Figures")
+
+tiff(filename = "veg.tif", height=5, width=6, units= "in", res=800, compression= "lzw")
+plot_grid(tree, roots, labels = c("A", "B"), ncol = 1, label_size = 11, rel_heights = c(2.5,3))
 dev.off()
 
 ########## supplemental figures
