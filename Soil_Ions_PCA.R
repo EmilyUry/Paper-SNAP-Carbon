@@ -1,8 +1,9 @@
 
 
 
-### PCA scratch
-setwd("C:/Users/uryem/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/data")
+### PCA - FIGURE 3
+# setwd("C:/Users/uryem/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/data")
+setwd("C:/Users/uryem/OneDrive - University of Waterloo/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/data")
 
 
 x <- read.csv("SNAP_3year_harm.csv", head = T)
@@ -71,8 +72,11 @@ df5 <- df[which(df$Site == "5"),]
 pca.loading.sub <- pca.loading[c(1:4), c(1:4)]
 rownames(pca.loading.sub) <- c("pH", "Cl, Na, Mg", "SO4, K", "Ca")
 
+setwd("C:/Users/uryem/OneDrive - University of Waterloo/Desktop/DukeBioDrop_backup/Ch3_SNAP_Carbon/Second Submission - Plos1/Figures")
+
+
 {
-  tiff(filename = "PCA.tiff", height=2800, width=5600, units= "px", res=800, compression= "lzw")
+  tiff(filename = "PCA.tif", height=3, width=6, units= "in", res=800, compression= "lzw")
   
   
   par(mfrow = c(1,3), mar = c(4,1,3,0.5), oma = c(1,4,1,1))
@@ -83,7 +87,7 @@ rownames(pca.loading.sub) <- c("pH", "Cl, Na, Mg", "SO4, K", "Ca")
        col = "black",
        bg = ifelse(df1$Treatment == "Salt", col.s[df1$Depth], col.c[df1$Depth]))
   arrows(0,0, pca.loading.sub[,1]*5, pca.loading.sub[,2]*5, length = 0.1, lwd = 1.5, col = "black")
-  text(pca.loading.sub[,1]*5, pca.loading.sub[,2]*5, row.names(pca.loading.sub), cex = 1.2, col = "black", pos = 4)
+  text(pca.loading.sub[,1]*5, pca.loading.sub[,2]*5, row.names(pca.loading.sub), cex = 0.8, col = "black", pos = 4)
   
   plot(df3$PC1, df3$PC2, 
        xlab = "PC1", ylab = "", xlim = c(-2,11), ylim = c(-5,2), 
@@ -93,9 +97,9 @@ rownames(pca.loading.sub) <- c("pH", "Cl, Na, Mg", "SO4, K", "Ca")
        col = "black",
        bg = ifelse(df1$Treatment == "Salt", col.s[df1$Depth], col.c[df1$Depth]))
   arrows(0,0, pca.loading.sub[,1]*5, pca.loading.sub[,2]*5, length = 0.1, lwd = 1.5, col = "black")
-  text(pca.loading.sub[,1]*5, pca.loading.sub[,2]*5, row.names(pca.loading.sub), cex = 1.2, col = "black", pos = 4)
+  text(pca.loading.sub[,1]*5, pca.loading.sub[,2]*5, row.names(pca.loading.sub), cex = 0.8, col = "black", pos = 4)
   legend("bottomright", c("Salt (0-5)", "Salt (5-10)", "Control (0-5)", "Control (5-10)"),
-         pch = c(24, 24, 21, 21), cex = 1.1,
+         pch = c(24, 24, 21, 21), cex = 1,
          col = "black", pt.bg = c("#a50026", "#fee090", "#313695", "#e0f3f8"),
          title = "Treatment (depth)")
   
@@ -106,7 +110,7 @@ rownames(pca.loading.sub) <- c("pH", "Cl, Na, Mg", "SO4, K", "Ca")
        col = "black",
        bg = ifelse(df1$Treatment == "Salt", col.s[df1$Depth], col.c[df1$Depth]))
   arrows(0,0, pca.loading.sub[,1]*5, pca.loading.sub[,2]*5, length = 0.1, lwd = 1.5, col = "black")
-  text(pca.loading.sub[,1]*5, pca.loading.sub[,2]*5, row.names(pca.loading.sub), cex = 1.2, col = "black", pos = 4)
+  text(pca.loading.sub[,1]*5, pca.loading.sub[,2]*5, row.names(pca.loading.sub), cex = 0.8, col = "black", pos = 4)
   mtext("PC2", side=2, line=2, cex=0.7, outer=TRUE)
 
   
